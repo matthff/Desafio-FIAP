@@ -1,0 +1,40 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: desafio-fiap-sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=${SA_PASSWORD}
+      - MSSQL_PID=Developer
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+  #   - ./database/dump.sql:/dump.sql
+  #   - ./entrypoint.sh:/entrypoint.sh
+  # command: /bin/bash /entrypoint.sh
+    restart: unless-stopped
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P ${SA_PASSWORD} -Q "SELECT 1" || exit 1
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+  #sqlserver-init:
+  #  image: mcr.microsoft.com/mssql/server:2022-latest
+  #  depends_on:
+  #    sqlserver:
+  #      condition: service_healthy
+  #  volumes:
+  #    - ./database/dump.sql:/dump.sql
+  #  environment:
+  #    - SA_PASSWORD=${SA_PASSWORD}
+  #  entrypoint: >
+  #    /bin/bash -c "
+  #    /opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P $$SA_PASSWORD -i /dump.sql &&
+  #    echo 'Banco de dados inicializado com sucesso!' &&
+  #    exit 0
+  #    "
+volumes:
+  sqlserver_data:
+    driver: local
