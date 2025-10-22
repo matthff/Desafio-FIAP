@@ -30,7 +30,7 @@ namespace Api.Service.Services
             return _mapper.Map<TurmaDto>(await _turmaRepository.ObterPorIdComAlunos(turmaId));
         }
 
-        public async Task<TurmaDto> InserirTurma(TurmaCreateDto turmaCriada)
+        public async Task<TurmaDto> InserirTurma(TurmaInserirDto turmaCriada)
         {
             var entity = _mapper.Map<Turma>(turmaCriada);
             var result = await _turmaRepository.InserirAsync(entity);

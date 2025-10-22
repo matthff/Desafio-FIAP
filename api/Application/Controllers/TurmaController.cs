@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Application.Controllers;
 
 /// <summary>
-/// Gerenciamento de alunos - V1
+/// Gerenciamento de turmas - V1
 /// </summary>
 [ApiController]
 [Route("api/v1/[controller]")]
@@ -24,7 +24,7 @@ public class TurmaController : ControllerBase
     /// Lista todas as turmas.
     /// </summary>
     /// <remarks>
-    /// Retorna uma lista paginada de todos os turmas cadastradas no sistema com sua quantidade de alunos.
+    /// Retorna uma lista paginada ordenada por ordem alfabética pelo nome de todas as turmas cadastradas no sistema.
     /// </remarks>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -88,14 +88,14 @@ public class TurmaController : ControllerBase
     }
 
     /// <summary>
-    /// Cadastra uma nova turma
+    /// Cadastra uma nova turma.
     /// </summary>
-    /// <param name="turma">Dados da turma a ser cadastrada</param>
+    /// <param name="turma">Dados da turma a ser cadastrada.</param>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> InserirTurma([FromBody] TurmaCreateDto turma)
+    public async Task<IActionResult> InserirTurma([FromBody] TurmaInserirDto turma)
     {
         if (!ModelState.IsValid)
         {
@@ -120,7 +120,7 @@ public class TurmaController : ControllerBase
     }
 
     /// <summary>
-    /// Atualiza uma nova turma.
+    /// Atualiza uma turma.
     /// </summary>
     /// <param name="turma">Dados da turma a ser atualizada.</param>
     /// <remarks>
@@ -130,7 +130,7 @@ public class TurmaController : ControllerBase
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> UpdateTrainer([FromBody] TurmaAtualizarDto turma)
+    public async Task<IActionResult> AtualizarTurma([FromBody] TurmaAtualizarDto turma)
     {
         if (!ModelState.IsValid)
         {
@@ -166,7 +166,7 @@ public class TurmaController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> DeleteTrainer(int turmaId)
+    public async Task<IActionResult> ExcluirTurma(int turmaId)
     {
         if (!ModelState.IsValid)
         {

@@ -9,6 +9,18 @@ public class AlunoProfile : Profile
     public AlunoProfile()
     {
         CreateMap<AlunoDto, E.Aluno>().ReverseMap();
+
+        CreateMap<E.Aluno, AlunoInserirDto>();
+
+        CreateMap<AlunoInserirDto, E.Aluno>()
+            .ForMember(dest => dest.SenhaHash,
+                opt => opt.MapFrom(src => src.Senha)); //TODO: Verificar se é de fato necessário esse mapeamento explícito.
+
+        CreateMap<E.Aluno, AlunoAtualizarDto>();
+
+        CreateMap<AlunoAtualizarDto, E.Aluno>()
+            .ForMember(dest => dest.SenhaHash,
+                opt => opt.MapFrom(src => src.Senha)); //TODO: Verificar se é de fato necessário esse mapeamento explícito.
     }
 }
 

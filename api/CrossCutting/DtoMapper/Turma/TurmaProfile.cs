@@ -14,7 +14,7 @@ public class TurmaProfile : Profile
 
         CreateMap<TurmaDto, E.Turma>();
 
-        CreateMap<TurmaCreateDto, E.Turma>().ReverseMap();
+        CreateMap<TurmaInserirDto, E.Turma>().ReverseMap();
 
         CreateMap<TurmaAtualizarDto, E.Turma>().ReverseMap();
     }

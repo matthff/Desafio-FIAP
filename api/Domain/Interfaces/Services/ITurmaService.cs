@@ -10,7 +10,7 @@ public interface ITurmaService : IBaseService<TurmaDto>
 
     Task<TurmaDto> ObterPorIdComQuantidadeDeAlunos(int turmaId);
 
-    Task<TurmaDto> InserirTurma(TurmaCreateDto turmaCriada);
+    Task<TurmaDto> InserirTurma(TurmaInserirDto turmaCriada);
 
     Task<TurmaDto> AtualizarTurma(TurmaAtualizarDto turmaAtualizada);
 

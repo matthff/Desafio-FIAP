@@ -5,6 +5,11 @@ namespace Api.Domain.Entidades;
 
 public class Aluno : EntidadeBase
 {
+    public const int TamanhoMinimoNome = 3;
+    public const int TamanhoMaximoNome = 100;
+    public const int TamanhoMaximoEmail = 200;
+    public const int TamanhoMinimoSenha = 8;
+
     public string Nome { get; set; }
     public string Email { get; set; }
     public string SenhaHash { get; set; }
