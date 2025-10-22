@@ -14,14 +14,7 @@ public class TurmaRepository : BaseRepository<Turma>, ITurmaRepository
 
     public async Task<IEnumerable<Turma>> ObterTodosComQuantidadeDeAlunos()
     {
-        try
-        {
-            return await _dataset.Include(t => t.Alunos).OrderBy(t => t.Nome).ToListAsync();
-        }
-        catch (System.Exception)
-        {
-            throw;
-        }
+        return await _dataset.Include(t => t.Alunos).OrderBy(t => t.Nome).ToListAsync();
     }
 }
 

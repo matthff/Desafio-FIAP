@@ -13,6 +13,8 @@ public class TurmaProfile : Profile
                 opt => opt.MapFrom(src => src.QuantidadeDeAlunosNaTurma));
 
         CreateMap<TurmaDto, E.Turma>();
+
+        CreateMap<TurmaCreateDto, E.Turma>().ReverseMap();
     }
 }
 

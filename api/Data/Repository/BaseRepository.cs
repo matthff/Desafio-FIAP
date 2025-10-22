@@ -50,11 +50,12 @@ namespace Api.Data.Repository
             try
             {
                 item.DataCadastro = DateTime.UtcNow;
+                item.Ativo = true;
                 _dataset.Add(item);
 
                 await _context.SaveChangesAsync();
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 throw;
             }

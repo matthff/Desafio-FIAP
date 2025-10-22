@@ -11,12 +11,10 @@ namespace Api.Service.Services
     public class TurmaService : BaseService<Turma, TurmaDto>, ITurmaService
     {
         private readonly ITurmaRepository _turmaRepository;
-        private readonly IMapper _mapper;
 
         public TurmaService(ITurmaRepository turmaRepository, IMapper mapper) : base(turmaRepository, mapper)
         {
             _turmaRepository = turmaRepository;
-            _mapper = mapper;
         }
 
         public async Task<IEnumerable<TurmaDto>> ObterTodosComQuantidadeDeAlunos()
@@ -25,7 +23,7 @@ namespace Api.Service.Services
             return _mapper.Map<IEnumerable<TurmaDto>>(listEntity);
         }
 
-        public async Task<TurmaDto> Inserir(TurmaCreateDto trainerCreated)
+        public async Task<TurmaDto> InserirTurma(TurmaCreateDto trainerCreated)
         {
             var entity = _mapper.Map<Turma>(trainerCreated);
             var result = await _turmaRepository.InserirAsync(entity);
