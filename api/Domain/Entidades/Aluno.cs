@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Api.Dominio.Entidades;
+namespace Api.Domain.Entidades;
 
 public class Aluno : EntidadeBase
 {

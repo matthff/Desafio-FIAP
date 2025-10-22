@@ -1,5 +1,5 @@
 using Api.Data.Mapping;
-using Api.Dominio.Entidades;
+using Api.Domain.Entidades;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Data.Context

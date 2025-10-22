@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Api.Dominio.Entidades;
+namespace Api.Domain.Entidades;
 
 public class Turma : EntidadeBase
 {

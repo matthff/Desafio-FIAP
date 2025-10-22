@@ -1,6 +1,6 @@
 using System;
 
-namespace Api.Dominio.Entidades;
+namespace Api.Domain.Entidades;
 
 public class Matricula : EntidadeId
 {

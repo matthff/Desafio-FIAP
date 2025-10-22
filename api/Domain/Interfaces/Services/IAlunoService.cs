@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Api.Dominio.DTO.Aluno;
+using Api.Domain.DTO.Aluno;
 
-namespace Api.Dominio.Interfaces.Services;
+namespace Api.Domain.Interfaces.Services;
 
 //TODO: Criar métodos específicos para Aluno
 public interface IAlunoService : IBaseService<AlunoDto>

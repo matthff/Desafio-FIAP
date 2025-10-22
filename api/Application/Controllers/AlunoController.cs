@@ -1,5 +1,5 @@
 using System.Net;
-using Api.Dominio.Interfaces.Services;
+using Api.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Application.Controllers;

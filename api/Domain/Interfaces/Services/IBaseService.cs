@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Api.Dominio.DTO;
+using Api.Domain.DTO;
 
-namespace Api.Dominio.Interfaces.Services;
+namespace Api.Domain.Interfaces.Services;
 
 public interface IBaseService<A>
     where A : BaseDto

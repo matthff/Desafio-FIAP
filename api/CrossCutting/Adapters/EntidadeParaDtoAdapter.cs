@@ -1,6 +1,6 @@
-using Api.Dominio.DTO.Aluno;
-using Api.Dominio.DTO.Turma;
-using Api.Dominio.Entidades;
+using Api.Domain.DTO.Aluno;
+using Api.Domain.DTO.Turma;
+using Api.Domain.Entidades;
 using AutoMapper;
 
 namespace Api.CrossCutting.Mapping

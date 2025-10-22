@@ -1,4 +1,4 @@
-namespace Api.Dominio.DTO.Aluno;
+namespace Api.Domain.DTO.Aluno;
 
 public class AlunoDto : BaseDto
 {

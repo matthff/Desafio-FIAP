@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Api.Dominio.DTO.Turma;
-using Api.Dominio.Entidades;
-using Api.Dominio.Interfaces.Repository;
-using Api.Dominio.Interfaces.Services;
+using Api.Domain.DTO.Turma;
+using Api.Domain.Entidades;
+using Api.Domain.Interfaces.Repository;
+using Api.Domain.Interfaces.Services;
 using AutoMapper;
 
 namespace Api.Service.Services

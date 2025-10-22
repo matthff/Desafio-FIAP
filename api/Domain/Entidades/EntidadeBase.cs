@@ -1,6 +1,6 @@
 using System;
 
-namespace Api.Dominio.Entidades;
+namespace Api.Domain.Entidades;
 
 public abstract class EntidadeBase : EntidadeId
 {

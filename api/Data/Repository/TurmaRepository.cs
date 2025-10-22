@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Api.Data.Context;
-using Api.Dominio.Entidades;
-using Api.Dominio.Interfaces.Repository;
+using Api.Domain.Entidades;
+using Api.Domain.Interfaces.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Data.Repository;

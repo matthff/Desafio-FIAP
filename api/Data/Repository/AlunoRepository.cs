@@ -1,6 +1,6 @@
 using Api.Data.Context;
-using Api.Dominio.Entidades;
-using Api.Dominio.Interfaces.Repository;
+using Api.Domain.Entidades;
+using Api.Domain.Interfaces.Repository;
 
 namespace Api.Data.Repository
 {

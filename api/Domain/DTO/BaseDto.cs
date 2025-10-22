@@ -1,6 +1,6 @@
 using System;
 
-namespace Api.Dominio.DTO;
+namespace Api.Domain.DTO;
 
 public abstract class BaseDto
 {

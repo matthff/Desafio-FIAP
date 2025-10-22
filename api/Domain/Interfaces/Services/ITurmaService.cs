@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Api.Dominio.DTO.Turma;
+using Api.Domain.DTO.Turma;
 
-namespace Api.Dominio.Interfaces.Services;
+namespace Api.Domain.Interfaces.Services;
 
 public interface ITurmaService : IBaseService<TurmaDto>
 {

@@ -1,4 +1,4 @@
-namespace Api.Dominio.DTO.Turma;
+namespace Api.Domain.DTO.Turma;
 
 public class TurmaDto : BaseDto
 {

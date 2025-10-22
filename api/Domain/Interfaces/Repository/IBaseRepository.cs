@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Api.Dominio.Entidades;
+using Api.Domain.Entidades;
 
-namespace Api.Dominio.Interfaces.Repository
+namespace Api.Domain.Interfaces.Repository
 {
     public interface IBaseRepository<T>
         where T : EntidadeBase

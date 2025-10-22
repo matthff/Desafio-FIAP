@@ -1,6 +1,6 @@
-using Api.Dominio.DTO;
-using Api.Dominio.Entidades;
-using Api.Dominio.Interfaces.Services;
+using Api.Domain.DTO;
+using Api.Domain.Entidades;
+using Api.Domain.Interfaces.Services;
 using Api.Service.Services;
 using Microsoft.Extensions.DependencyInjection;
 

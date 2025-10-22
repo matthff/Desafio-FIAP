@@ -1,4 +1,4 @@
-using Api.Dominio.Entidades;
+using Api.Domain.Entidades;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
