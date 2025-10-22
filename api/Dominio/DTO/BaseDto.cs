@@ -1,9 +1,10 @@
 using System;
 
-namespace Api.Dominio.Entidades;
+namespace Api.Dominio.DTO;
 
-public abstract class EntidadeBase : EntidadeId
+public abstract class BaseDto
 {
+    public int Id { get; set; }
     public bool Ativo { get; set; }
     public DateTime DataCadastro { get; set; }
     public DateTime DataAtualizacao { get; set; }
