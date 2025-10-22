@@ -24,5 +24,13 @@ namespace Api.Service.Services
             var listEntity = await _turmaRepository.ObterTodosComQuantidadeDeAlunos();
             return _mapper.Map<IEnumerable<TurmaDto>>(listEntity);
         }
+
+        public async Task<TurmaDto> Inserir(TurmaCreateDto trainerCreated)
+        {
+            var entity = _mapper.Map<Turma>(trainerCreated);
+            var result = await _turmaRepository.InserirAsync(entity);
+
+            return _mapper.Map<TurmaDto>(result);
+        }
     }
 }

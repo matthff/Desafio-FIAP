@@ -1,6 +1,4 @@
 using Api.CrossCutting.Dependecies;
-using Api.CrossCutting.Mapping;
-using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,10 +14,8 @@ ConfigureRepository.ConfigureDependenciesRepository(builder.Services, builder.Co
 // Register your services
 ConfigureService.ConfigureDependenciesServices(builder.Services);
 
-builder.Services.AddAutoMapper(cfg =>
-{
-    cfg.AddProfile(new EntidadeParaDtoAdapter());
-});
+// Register AutoMapper profiles
+ConfigureAutoMapper.ConfigureAutoMapperProfiles(builder.Services);
 
 var app = builder.Build();
 
