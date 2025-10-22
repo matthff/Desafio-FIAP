@@ -24,7 +24,7 @@ public class AlunoController : ControllerBase
         }
         try
         {
-            var result = await _alunoService.ObterTodosAsync();
+            var result = await _alunoService.ObterTodosAlunosOrdenadosPorNome();
             if (result == null)
             {
                 return NotFound();

@@ -7,5 +7,6 @@ namespace Api.Domain.Interfaces.Services;
 //TODO: Criar métodos específicos para Aluno
 public interface IAlunoService : IBaseService<AlunoDto>
 {
+    Task<IEnumerable<AlunoDto>> ObterTodosAlunosOrdenadosPorNome();
 }
 

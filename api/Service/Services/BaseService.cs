@@ -12,8 +12,8 @@ namespace Api.Service.Services
         where T : EntidadeBase
         where A : BaseDto
     {
-        private readonly IBaseRepository<T> _repository;
-        private readonly IMapper _mapper;
+        protected readonly IBaseRepository<T> _repository;
+        protected readonly IMapper _mapper;
 
         public BaseService(IBaseRepository<T> repository, IMapper mapper)
         {
