@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Api.Data.Context;
 using Api.Domain.Entidades;
@@ -18,6 +19,11 @@ public class AlunoRepository : BaseRepository<Aluno>, IAlunoRepository
     public async Task<Aluno> ObterPorIdComCpf(string alunoCpf)
     {
         return await _dataset.SingleOrDefaultAsync(p => p.Cpf.Equals(alunoCpf));
+    }
+
+    public async Task<bool> ExisteAluno(Aluno aluno)
+    {
+        return await _dataset.AnyAsync(p => p.Cpf.Equals(aluno.Cpf) || p.Email.Equals(aluno.Email));
     }
 }
 

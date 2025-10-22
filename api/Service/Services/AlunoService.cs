@@ -37,6 +37,10 @@ public class AlunoService : BaseService<Aluno, AlunoDto>, IAlunoService
     public async Task<AlunoDto> InserirAluno(AlunoInserirDto alunoCriado)
     {
         var entity = _mapper.Map<Aluno>(alunoCriado);
+
+        if (await _alunoRepository.ExisteAluno(entity))
+            return null;
+
         var result = await _alunoRepository.InserirAsync(entity);
 
         return _mapper.Map<AlunoDto>(result);
@@ -45,12 +49,17 @@ public class AlunoService : BaseService<Aluno, AlunoDto>, IAlunoService
     public async Task<AlunoDto> AtualizarAluno(AlunoAtualizarDto alunoAtualizado)
     {
         var entity = _mapper.Map<Aluno>(alunoAtualizado);
+
+        if (await _alunoRepository.ExisteAluno(entity))
+            return null;
+
         var result = await _alunoRepository.AtualizarParcialAsync(entity,
-                                                                e => e.Nome,
-                                                                e => e.Email,
-                                                                e => e.SenhaHash,
-                                                                e => e.Cpf,
-                                                                e => e.DataNascimento);
+            e => e.Nome,
+            e => e.Email,
+            e => e.SenhaHash,
+            e => e.Cpf,
+            e => e.DataNascimento);
+
         return _mapper.Map<AlunoDto>(result);
     }
 

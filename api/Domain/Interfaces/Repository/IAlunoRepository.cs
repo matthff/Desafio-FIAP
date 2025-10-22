@@ -8,4 +8,6 @@ public interface IAlunoRepository : IBaseRepository<Aluno>
     Task<Aluno> ObterPorIdComNome(string alunoNome);
 
     Task<Aluno> ObterPorIdComCpf(string alunoCpf);
+
+    Task<bool> ExisteAluno(Aluno aluno);
 }
