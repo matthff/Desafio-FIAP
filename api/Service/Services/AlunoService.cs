@@ -12,10 +12,12 @@ namespace Api.Service.Services;
 public class AlunoService : BaseService<Aluno, AlunoDto>, IAlunoService
 {
     private readonly IAlunoRepository _alunoRepository;
+    private readonly ISenhaService<Aluno> _senhaService;
 
-    public AlunoService(IAlunoRepository alunoRepository, IMapper mapper) : base(alunoRepository, mapper)
+    public AlunoService(IAlunoRepository alunoRepository, IMapper mapper, ISenhaService<Aluno> senhaService) : base(alunoRepository, mapper)
     {
         _alunoRepository = alunoRepository;
+        _senhaService = senhaService;
     }
 
     public async Task<IEnumerable<AlunoDto>> ObterTodosAlunosOrdenadosPorNome()
@@ -41,6 +43,8 @@ public class AlunoService : BaseService<Aluno, AlunoDto>, IAlunoService
         if (await _alunoRepository.ExisteAluno(entity))
             return null;
 
+        entity.DefinirSenha(_senhaService.HashSenha(entity, alunoCriado.Senha));
+
         var result = await _alunoRepository.InserirAsync(entity);
 
         return _mapper.Map<AlunoDto>(result);
@@ -52,6 +56,8 @@ public class AlunoService : BaseService<Aluno, AlunoDto>, IAlunoService
 
         if (await _alunoRepository.ExisteAluno(entity))
             return null;
+
+        entity.DefinirSenha(_senhaService.HashSenha(entity, alunoAtualizado.Senha));
 
         var result = await _alunoRepository.AtualizarParcialAsync(entity,
             e => e.Nome,

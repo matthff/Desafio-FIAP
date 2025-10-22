@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Api.Domain.Entidades;
 
-public class Aluno : EntidadeBase
+public class Aluno : EntidadeBaseIdentidade
 {
     public const int TamanhoMinimoNome = 3;
     public const int TamanhoMaximoNome = 100;
@@ -11,8 +11,6 @@ public class Aluno : EntidadeBase
     public const int TamanhoMinimoSenha = 8;
 
     public string Nome { get; set; }
-    public string Email { get; set; }
-    public string SenhaHash { get; set; }
     public string Cpf { get; set; }
     public DateTime DataNascimento { get; set; }
 

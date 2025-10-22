@@ -12,6 +12,7 @@ namespace Api.CrossCutting.Dependecies
         {
             serviceCollection.AddScoped<IAlunoService, AlunoService>();
             serviceCollection.AddScoped<ITurmaService, TurmaService>();
+            serviceCollection.AddScoped(typeof(ISenhaService<>), typeof(SenhaService<>));
         }
     }
 }
