@@ -10,7 +10,7 @@ namespace Application.Controllers;
 /// </summary>
 [ApiController]
 [Route("api/v1/[controller]")]
-[Tags("Alunos")]
+[Tags("Turma")]
 public class TurmaController : ControllerBase
 {
     private ITurmaService _turmaService;
@@ -21,24 +21,17 @@ public class TurmaController : ControllerBase
     }
 
     /// <summary>
-    /// Lista todas as turmas com a quantidade de alunos em cada uma.
+    /// Lista todas as turmas.
     /// </summary>
     /// <remarks>
-    /// Retorna uma lista paginada de todos os turmas cadastradas no sistema.
-    /// 
-    /// Exemplo de requisição:
-    /// 
-    ///     GET /api/v1/turma
-    /// 
+    /// Retorna uma lista paginada de todos os turmas cadastradas no sistema com sua quantidade de alunos.
     /// </remarks>
-    /// <response code="200">Lista de alunos retornada com sucesso</response>
-    /// <response code="400">Requisição inválida</response>
-    /// <response code="500">Erro interno do servidor</response>
-    [HttpGet(Name = "ObterTurmas")]
+    [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> ObterTurmas()
+    public async Task<IActionResult> ObterTurmasComQuantidadeDeAlunos()
     {
         if (!ModelState.IsValid)
         {
@@ -61,12 +54,43 @@ public class TurmaController : ControllerBase
     }
 
     /// <summary>
+    /// Obter uma turma pelo seu identificador.
+    /// </summary>
+    /// <remarks>
+    /// Retorna um objeto com as informações sobre a turma e sua quantidade de alunos.
+    /// </remarks>
+    /// <param name="turmaId">Identificador da turma.</param>
+    [HttpGet("{turmaId}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> ObterTurmaPorIdComQuantidadeDeAlunos(int turmaId)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        try
+        {
+            var result = await _turmaService.ObterPorIdComQuantidadeDeAlunos(turmaId);
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
+        }
+        catch (ArgumentException e)
+        {
+            return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+        }
+    }
+
+    /// <summary>
     /// Cadastra uma nova turma
     /// </summary>
     /// <param name="turma">Dados da turma a ser cadastrada</param>
-    /// <response code="201">Turma criada com sucesso</response>
-    /// <response code="400">Requisição inválida</response>
-    /// <response code="500">Erro interno do servidor</response>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -82,11 +106,82 @@ public class TurmaController : ControllerBase
             var result = await _turmaService.InserirTurma(turma);
             if (result != null)
             {
-                return Created(); //TODO: Adicionar a rota de get para retornar a turma criada
+                return Created();
             }
             else
             {
                 return BadRequest(ModelState);
+            }
+        }
+        catch (ArgumentException e)
+        {
+            return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+        }
+    }
+
+    /// <summary>
+    /// Atualiza uma nova turma.
+    /// </summary>
+    /// <param name="turma">Dados da turma a ser atualizada.</param>
+    /// <remarks>
+    /// Retorna um objeto com as informações sobre a turma atualizada.
+    /// </remarks>
+    [HttpPut]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> UpdateTrainer([FromBody] TurmaAtualizarDto turma)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        try
+        {
+            var result = await _turmaService.AtualizarTurma(turma);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+        }
+        catch (ArgumentException e)
+        {
+            return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+        }
+    }
+
+    /// <summary>
+    /// Exclui uma turma.
+    /// </summary>
+    /// <param name="turmaId">Identificador da turma.</param>
+    /// <remarks>
+    /// Retorna um um booleano representando a exclusão da turma.
+    /// </remarks>
+    [HttpDelete("{turmaId}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> DeleteTrainer(int turmaId)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        try
+        {
+            var result = await _turmaService.ExcluirTurma(turmaId);
+            if (result)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return NotFound(result);
             }
         }
         catch (ArgumentException e)

@@ -23,64 +23,36 @@ namespace Api.Data.Repository
 
         public async Task<IEnumerable<T>> ObterTodosAsync()
         {
-            try
-            {
-                return await _dataset.ToListAsync();
-            }
-            catch (System.Exception)
-            {
-                throw;
-            }
+            return await _dataset.ToListAsync();
         }
 
         public async Task<T> ObterPorIdAsync(int id)
         {
-            try
-            {
-                return await _dataset.SingleOrDefaultAsync(p => p.Id.Equals(id));
-            }
-            catch (System.Exception)
-            {
-                throw;
-            }
+            return await _dataset.SingleOrDefaultAsync(p => p.Id.Equals(id));
         }
 
         public async Task<T> InserirAsync(T item)
         {
-            try
-            {
-                item.DataCadastro = DateTime.UtcNow;
-                item.Ativo = true;
-                _dataset.Add(item);
+            item.DataCadastro = DateTime.UtcNow;
+            item.Ativo = true;
+            _dataset.Add(item);
 
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            await _context.SaveChangesAsync();
 
             return item;
         }
 
         public async Task<T> AtualizarAsync(T item)
         {
-            try
-            {
-                var result = await _dataset.SingleOrDefaultAsync(p => p.Id.Equals(item.Id));
-                if (result == null)
-                    return null;
+            var result = await _dataset.SingleOrDefaultAsync(p => p.Id.Equals(item.Id));
+            if (result == null)
+                return null;
 
-                item.DataAtualizacao = DateTime.UtcNow;
-                item.DataCadastro = result.DataCadastro;
+            item.DataAtualizacao = DateTime.UtcNow;
+            item.DataCadastro = result.DataCadastro;
 
-                _context.Entry(result).CurrentValues.SetValues(item);
-                await _context.SaveChangesAsync();
-            }
-            catch (System.Exception)
-            {
-                throw;
-            }
+            _context.Entry(result).CurrentValues.SetValues(item);
+            await _context.SaveChangesAsync();
 
             return item;
         }
@@ -89,46 +61,33 @@ namespace Api.Data.Repository
             T item,
             params Expression<Func<T, object>>[] includeProperties)
         {
-            try
+            var result = await _dataset.AsNoTracking().SingleOrDefaultAsync(p => p.Id.Equals(item.Id));
+            if (result == null)
+                return null;
+
+            foreach (var includeProperty in includeProperties)
             {
-                foreach (var includeProperty in includeProperties)
-                {
-                    _context.Entry(item).Property(includeProperty).IsModified = true;
-                }
-
-                var result = await _dataset.SingleOrDefaultAsync(p => p.Id.Equals(item.Id));
-                if (result == null)
-                    return null;
-
-                item.DataAtualizacao = DateTime.UtcNow;
-                item.DataCadastro = result.DataCadastro;
-
-                await _context.SaveChangesAsync();
+                _context.Entry(item).Property(includeProperty).IsModified = true;
             }
-            catch (System.Exception)
-            {
-                throw;
-            }
+
+            item.Ativo = result.Ativo;
+            item.DataAtualizacao = DateTime.UtcNow;
+            item.DataCadastro = result.DataCadastro;
+
+            await _context.SaveChangesAsync();
 
             return item;
         }
 
         public async Task<bool> ExcluirAsync(int id)
         {
-            try
-            {
-                var result = await _dataset.SingleOrDefaultAsync(p => p.Id.Equals(id));
-                if (result == null)
-                    return false;
+            var result = await _dataset.SingleOrDefaultAsync(p => p.Id.Equals(id));
+            if (result == null)
+                return false;
 
-                _dataset.Remove(result);
-                await _context.SaveChangesAsync();
-                return true;
-            }
-            catch (System.Exception)
-            {
-                throw;
-            }
+            _dataset.Remove(result);
+            await _context.SaveChangesAsync();
+            return true;
         }
 
         public async Task<bool> ExisteAsync(int id)

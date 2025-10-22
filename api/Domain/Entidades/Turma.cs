@@ -7,9 +7,8 @@ public class Turma : EntidadeBase
 {
     public string Nome { get; set; }
     public string Descricao { get; set; }
+    public int QuantidadeDeAlunosNaTurma => Alunos != null ? Alunos.Count() : 0;
 
     public IEnumerable<Aluno> Alunos { get; set; }
     public IEnumerable<Matricula> Matriculas { get; set; }
-
-    public int QuantidadeDeAlunosNaTurma => Alunos != null ? Alunos.Count() : 0;
 }

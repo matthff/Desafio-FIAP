@@ -8,6 +8,12 @@ public interface ITurmaService : IBaseService<TurmaDto>
 {
     Task<IEnumerable<TurmaDto>> ObterTodosComQuantidadeDeAlunos();
 
-    Task<TurmaDto> InserirTurma(TurmaCreateDto trainerCreated);
+    Task<TurmaDto> ObterPorIdComQuantidadeDeAlunos(int turmaId);
+
+    Task<TurmaDto> InserirTurma(TurmaCreateDto turmaCriada);
+
+    Task<TurmaDto> AtualizarTurma(TurmaAtualizarDto turmaAtualizada);
+
+    Task<bool> ExcluirTurma(int turmaId);
 }
 
