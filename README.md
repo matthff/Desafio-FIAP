@@ -78,6 +78,15 @@ http://localhost:5000/swagger
 http://localhost:5000/api/...
 ```
 
+## Usuário Administrador Padrão
+
+Para acesso inicial à aplicação, utilize o usuário administrador padrão já cadastrado com as seguintes credenciais:
+
+- **Email**: `admin@fiap.com.br`
+- **Senha**: `Admin@123`
+
+Após logar com este usuário, é necessário copiar o token da resposta da requisição e adicionar na opção de autenticação através do `Bearer {token}`.
+
 ## Estrutura do Projeto
 
 ```
@@ -197,6 +206,7 @@ Listarei algumas melhorias e conteúdos adicionais que poderiam ser implementada
 - **Padrão ProblemDetails para retornos e tratamento de erros**
 - **Aliar o tratamento de erros com um notificador de eventos**
 - **Adicionar MFA na autênticação**
+- **Adicionar versionamento automático com Asp.Versioning.Mvc**
 
 Este projeto foi desenvolvido como parte do Desafio FIAP.
 
