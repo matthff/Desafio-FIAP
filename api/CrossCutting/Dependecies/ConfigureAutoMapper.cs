@@ -1,3 +1,4 @@
+using Api.CrossCutting.DtoMapper.Administrador;
 using Api.CrossCutting.DtoMapper.Aluno;
 using Api.CrossCutting.DtoMapper.Turma;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +13,7 @@ public static class ConfigureAutoMapper
         {
             cfg.AddProfile(new AlunoProfile());
             cfg.AddProfile(new TurmaProfile());
+            cfg.AddProfile(new AdministradorProfile());
         });
     }
 }

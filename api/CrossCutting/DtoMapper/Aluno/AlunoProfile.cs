@@ -14,13 +14,13 @@ public class AlunoProfile : Profile
 
         CreateMap<AlunoInserirDto, E.Aluno>()
             .ForMember(dest => dest.SenhaHash,
-                opt => opt.MapFrom(src => src.Senha)); //TODO: Verificar se é de fato necessário esse mapeamento explícito.
+                opt => opt.MapFrom(src => src.Senha));
 
         CreateMap<E.Aluno, AlunoAtualizarDto>();
 
         CreateMap<AlunoAtualizarDto, E.Aluno>()
             .ForMember(dest => dest.SenhaHash,
-                opt => opt.MapFrom(src => src.Senha)); //TODO: Verificar se é de fato necessário esse mapeamento explícito.
+                opt => opt.MapFrom(src => src.Senha));
     }
 }
 

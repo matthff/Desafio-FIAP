@@ -10,7 +10,6 @@ public class Aluno : EntidadeBaseIdentidade
     public const int TamanhoMaximoEmail = 200;
     public const int TamanhoMinimoSenha = 8;
 
-    public string Nome { get; set; }
     public string Cpf { get; set; }
     public DateTime DataNascimento { get; set; }
 

@@ -4,6 +4,7 @@ namespace Api.Domain.Entidades;
 
 public abstract class EntidadeBaseIdentidade : EntidadeBase
 {
+    public string Nome { get; set; }
     public string Email { get; set; }
     public string SenhaHash { get; private set; }
 

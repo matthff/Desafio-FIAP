@@ -13,6 +13,7 @@ namespace Api.CrossCutting.Dependecies
             serviceCollection.AddScoped<IAlunoService, AlunoService>();
             serviceCollection.AddScoped<ITurmaService, TurmaService>();
             serviceCollection.AddScoped<IMatriculaService, MatriculaService>();
+            serviceCollection.AddScoped<IAdministradorService, AdministradorService>();
             serviceCollection.AddTransient(typeof(ISenhaService<>), typeof(SenhaService<>));
         }
     }
