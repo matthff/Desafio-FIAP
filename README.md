@@ -35,9 +35,7 @@ Abra o arquivo `docker-compose.yml` e verifique/ajuste o nome do banco na connec
 - DB_CONNECTION_STRING=Server=sqlserver,1433;Database=FIAPSecretaria;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True;
 ```
 
-Certifique-se de que o nome do banco (`FIAPSecretaria`) corresponde ao banco criado no seu `dump.sql`.
-Não é necessário alterar caso o nome do banco seja o mesmo do arquivo em database/dump.sql
-Por padrão o banco criado nesse script tem o nome de "FIAPSecretaria", que já está por padrão como nome no arquivo docker-compose.yml
+Certifique-se de que o nome do banco (`FIAPSecretaria`) corresponde ao banco criado no seu `dump.sql`. Não é necessário alterar caso o nome do banco seja o mesmo do arquivo em `database/dump.sql`. Por padrão o banco criado nesse script tem o nome de `FIAPSecretaria`, que já está por padrão como nome no arquivo `docker-compose.yml`.
 
 ### 4. Inicie os containers
 
