@@ -6,6 +6,7 @@ using Api.Domain.Entidades;
 using Api.Domain.Interfaces.Repository;
 using Api.Domain.Interfaces.Services;
 using AutoMapper;
+using Domain.Utils;
 
 namespace Api.Service.Services;
 
@@ -20,10 +21,26 @@ public class AlunoService : BaseService<Aluno, AlunoDto>, IAlunoService
         _senhaService = senhaService;
     }
 
-    public async Task<IEnumerable<AlunoDto>> ObterTodosAlunosOrdenadosPorNome()
+    public async Task<PagedResult<AlunoDto>> ObterTodosOrdenadosPorNome(
+        int page = Pagination.DefaultPageNumber,
+        int pageSize = Pagination.DefaultPageSize)
     {
         var listEntity = await _alunoRepository.ObterTodosAsync();
-        return _mapper.Map<IEnumerable<AlunoDto>>(listEntity.OrderBy(a => a.Nome));
+
+        var totalCount = listEntity.Count();
+        var items = listEntity
+            .OrderBy(a => a.Nome)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+
+        return new PagedResult<AlunoDto>
+        {
+            Items = _mapper.Map<IEnumerable<AlunoDto>>(items).ToList(),
+            Page = page,
+            PageSize = pageSize,
+            TotalCount = totalCount
+        };
     }
 
     public async Task<AlunoDto> ObterPorIdComNome(string alunoNome)

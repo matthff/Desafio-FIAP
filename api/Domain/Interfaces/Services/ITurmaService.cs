@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Api.Domain.DTO.Turma;
+using Domain.Utils;
 
 namespace Api.Domain.Interfaces.Services;
 
 public interface ITurmaService : IBaseService<TurmaDto>
 {
-    Task<IEnumerable<TurmaDto>> ObterTodosComQuantidadeDeAlunos();
+    Task<PagedResult<TurmaDto>> ObterTodosOrdenadosPorNomeComQuantidadeDeAlunos(int page, int pageSize);
 
     Task<TurmaDto> ObterPorIdComQuantidadeDeAlunos(int turmaId);
 

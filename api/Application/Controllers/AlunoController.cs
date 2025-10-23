@@ -32,7 +32,7 @@ public class AlunoController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> ObterTodosAlunosOrdenadosPorNome()
+    public async Task<IActionResult> ObterTodosAlunosOrdenadosPorNome([FromQuery] int page)
     {
         if (!ModelState.IsValid)
         {
@@ -40,7 +40,7 @@ public class AlunoController : ControllerBase
         }
         try
         {
-            var result = await _alunoService.ObterTodosAlunosOrdenadosPorNome();
+            var result = await _alunoService.ObterTodosOrdenadosPorNome(page, Pagination.DefaultPageSize);
             if (result == null)
             {
                 return NotFound();

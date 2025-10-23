@@ -31,7 +31,7 @@ public class TurmaController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> ObterTurmasComQuantidadeDeAlunos()
+    public async Task<IActionResult> ObterTurmasComQuantidadeDeAlunos([FromQuery] int page)
     {
         if (!ModelState.IsValid)
         {
@@ -39,7 +39,7 @@ public class TurmaController : ControllerBase
         }
         try
         {
-            var result = await _turmaService.ObterTodosComQuantidadeDeAlunos();
+            var result = await _turmaService.ObterTodosOrdenadosPorNomeComQuantidadeDeAlunos(page, Pagination.DefaultPageSize);
             if (result == null)
             {
                 return NotFound();
