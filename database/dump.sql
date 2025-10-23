@@ -35,6 +35,8 @@ CREATE TABLE dbo.Administrador (
     Email NVARCHAR(200) NOT NULL UNIQUE,
     SenhaHash NVARCHAR(500) NOT NULL, -- Senha criptografada (REQUISITO 8)
     Ativo BIT DEFAULT 1,
+    RefreshToken NVARCHAR(500) NULL,
+    RefreshTokenExpireTime DATETIME NULL,
     DataCadastro DATETIME DEFAULT GETDATE(),
     DataAtualizacao DATETIME DEFAULT GETDATE(),
     CONSTRAINT CK_Administrador_Nome_Length CHECK (LEN(Nome) >= 3 AND LEN(Nome) <= 100),
@@ -250,7 +252,7 @@ GO
 -- Hash exemplo abaixo é apenas ilustrativo
 INSERT INTO dbo.Administrador (Nome, Email, SenhaHash)
 VALUES 
-    ('Administrador Principal', 'admin@fiap.com.br', '$2a$11$examplehash123456789012345678901234567890123456');
+    ('Administrador Principal', 'admin@fiap.com.br', 'AQAAAAIAAYagAAAAEH6Ryoe8uucKY/kmcARUbU2MHEfAnV0iUBjqeAEz96FwDALek3lZ8q9C7WICEmkHSw=='); -- Senha: Admin123@
 GO
 
 -- Inserir Alunos

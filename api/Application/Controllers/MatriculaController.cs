@@ -1,6 +1,7 @@
 using System.Net;
 using Api.Domain.DTO.Turma;
 using Api.Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Application.Controllers;
@@ -27,9 +28,11 @@ public class MatriculaController : ControllerBase
     /// <remarks>
     /// Retorna uma lista paginada de todas as matriculas de uma turma com seus respectivos alunos e com as datas das matrículas.
     /// </remarks>
+    [Authorize("Bearer")]
     [HttpGet("{turmaId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> ObterMatriculasDaTurma(int turmaId)
@@ -58,9 +61,11 @@ public class MatriculaController : ControllerBase
     /// Matricular um aluno em uma turma.
     /// </summary>
     /// <param name="matriculaDoAluno">Objeto com o identificador de aluno e de turma para realizar a matrícula.</param>
+    [Authorize("Bearer")]
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> MatricularAluno([FromBody] MatriculaDoAlunoDto matriculaDoAluno)
     {
@@ -87,9 +92,11 @@ public class MatriculaController : ControllerBase
     /// <remarks>
     /// Retorna um um booleano representando a exclusão da matricula.
     /// </remarks>
+    [Authorize("Bearer")]
     [HttpDelete("{matriculaId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> ExcluirTurma(int matriculaId)

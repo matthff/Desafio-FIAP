@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using Api.Domain.Interfaces.Repository;
 using Api.Domain.Interfaces.Services;
 using AutoMapper;
 using Domain.Utils;
+using Microsoft.AspNetCore.Identity;
 
 namespace Api.Service.Services;
 
@@ -22,6 +24,11 @@ public class AdministradorService : IAdministradorService
         _administradorRepository = administradorRepository;
         _mapper = mapper;
         _senhaService = senhaService;
+    }
+
+    public async Task<Administrador> ObterAdministradorPorEmail(string email)
+    {
+        return await _administradorRepository.ObterAdministradorPorEmail(email); ;
     }
 
     public async Task<AdministradorDto> InserirAdministrador(AdministradorInserirDto administradorCriado)
@@ -50,5 +57,28 @@ public class AdministradorService : IAdministradorService
             e => e.Email);
 
         return _mapper.Map<AdministradorDto>(result);
+    }
+
+    public async Task<Administrador> ValidarCredenciaisDoAdministrador(AdministradorLoginDto administradorLoginDto)
+    {
+        var entity = await _administradorRepository.ObterAdministradorPorEmail(administradorLoginDto.Email);
+
+        if (entity == null)
+            return null;
+
+        if (!_senhaService.VerificarSenha(entity, administradorLoginDto.Senha))
+            return null;
+
+        return entity;
+    }
+
+    public async Task RecarregarInformacoesDoAdministrador(Administrador administrador)
+    {
+        await _administradorRepository.RecarregarInformacoesDoAdministrador(administrador);
+    }
+
+    public async Task<bool> RevogarToken(string email)
+    {
+        return await _administradorRepository.RevogarToken(email);
     }
 }

@@ -61,9 +61,11 @@ public class AdministradorController : ControllerBase
     /// <remarks>
     /// Retorna um objeto com as informações sobre o administrador atualizado.
     /// </remarks>
+    [Authorize("Bearer")]
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> AtualizarAdministrador([FromBody] AdministradorAtualizarDto administrador)
     {

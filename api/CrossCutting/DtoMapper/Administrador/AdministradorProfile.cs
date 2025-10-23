@@ -18,6 +18,10 @@ public class AdministradorProfile : Profile
                 opt => opt.MapFrom(src => src.Senha));
 
         CreateMap<AdministradorAtualizarDto, E.Administrador>().ReverseMap();
+
+        CreateMap<AdministradorLoginDto, E.Administrador>()
+            .ForMember(dest => dest.SenhaHash,
+                opt => opt.MapFrom(src => src.Senha));
     }
 }
 

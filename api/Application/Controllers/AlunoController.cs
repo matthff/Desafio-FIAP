@@ -2,6 +2,7 @@ using System.Net;
 using Api.Domain.DTO.Aluno;
 using Api.Domain.DTO.Turma;
 using Api.Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Application.Controllers;
@@ -27,9 +28,11 @@ public class AlunoController : ControllerBase
     /// <remarks>
     /// Retorna uma lista paginada ordenada por ordem alfabética pelo nome de todos os alunos cadastrados no sistema.
     /// </remarks>
+    [Authorize("Bearer")]
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> ObterTodosAlunosOrdenadosPorNome([FromQuery] int page)
@@ -61,9 +64,11 @@ public class AlunoController : ControllerBase
     /// Retorna um objeto com as informações sobre o aluno.
     /// </remarks>
     /// <param name="alunoId">Identificador do aluno.</param>
+    [Authorize("Bearer")]
     [HttpGet("{alunoId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> ObterAlunoPorId(int alunoId)
@@ -95,10 +100,12 @@ public class AlunoController : ControllerBase
     /// Retorna um objeto com as informações sobre o aluno.
     /// </remarks>
     /// <param name="alunoNome">Nome do aluno.</param>
+    [Authorize("Bearer")]
     [HttpGet()]
     [Route("nome/{alunoNome}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> ObterAlunoPorNome(string alunoNome)
@@ -130,10 +137,12 @@ public class AlunoController : ControllerBase
     /// Retorna um objeto com as informações sobre o aluno.
     /// </remarks>
     /// <param name="alunoCpf">CPF do aluno.</param>
+    [Authorize("Bearer")]
     [HttpGet()]
     [Route("cpf/{alunoCpf}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> ObterAlunoPorCpf(string alunoCpf)
@@ -163,9 +172,11 @@ public class AlunoController : ControllerBase
     /// Cadastra um novo aluno.
     /// </summary>
     /// <param name="aluno">Dados do aluno a ser cadastrada.</param>
+    [Authorize("Bearer")]
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> InserirAluno([FromBody] AlunoInserirDto aluno)
     {
@@ -198,9 +209,11 @@ public class AlunoController : ControllerBase
     /// <remarks>
     /// Retorna um objeto com as informações sobre o aluno atualizado.
     /// </remarks>
+    [Authorize("Bearer")]
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> AtualizarAluno([FromBody] AlunoAtualizarDto aluno)
     {
@@ -233,9 +246,11 @@ public class AlunoController : ControllerBase
     /// <remarks>
     /// Retorna um um booleano representando a exclusão do aluno.
     /// </remarks>
+    [Authorize("Bearer")]
     [HttpDelete("{alunoId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> ExcluirAluno(int alunoId)

@@ -1,6 +1,7 @@
 using System.Net;
 using Api.Domain.DTO.Turma;
 using Api.Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Application.Controllers;
@@ -26,6 +27,7 @@ public class TurmaController : ControllerBase
     /// <remarks>
     /// Retorna uma lista paginada ordenada por ordem alfabética pelo nome de todas as turmas cadastradas no sistema.
     /// </remarks>
+    [Authorize("Bearer")]
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -60,9 +62,11 @@ public class TurmaController : ControllerBase
     /// Retorna um objeto com as informações sobre a turma e sua quantidade de alunos.
     /// </remarks>
     /// <param name="turmaId">Identificador da turma.</param>
+    [Authorize("Bearer")]
     [HttpGet("{turmaId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> ObterTurmaPorIdComQuantidadeDeAlunos(int turmaId)
@@ -91,9 +95,11 @@ public class TurmaController : ControllerBase
     /// Cadastra uma nova turma.
     /// </summary>
     /// <param name="turma">Dados da turma a ser cadastrada.</param>
+    [Authorize("Bearer")]
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> InserirTurma([FromBody] TurmaInserirDto turma)
     {
@@ -126,9 +132,11 @@ public class TurmaController : ControllerBase
     /// <remarks>
     /// Retorna um objeto com as informações sobre a turma atualizada.
     /// </remarks>
+    [Authorize("Bearer")]
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> AtualizarTurma([FromBody] TurmaAtualizarDto turma)
     {
@@ -161,9 +169,11 @@ public class TurmaController : ControllerBase
     /// <remarks>
     /// Retorna um um booleano representando a exclusão da turma.
     /// </remarks>
+    [Authorize("Bearer")]
     [HttpDelete("{turmaId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> ExcluirTurma(int turmaId)

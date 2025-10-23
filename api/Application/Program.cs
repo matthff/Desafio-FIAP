@@ -1,4 +1,9 @@
+using System.Text;
 using Api.CrossCutting.Dependecies;
+using Api.Domain.Security;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,6 +34,26 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "Entre com o Token JWT",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey
+    });
+
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme {
+                Reference = new OpenApiReference {
+                    Id = "Bearer",
+                    Type = ReferenceType.SecurityScheme
+                }
+            }, new List<string>()
+        }
+    });
+
     // Add XML comments if available (optional - see below for setup)
     var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
@@ -42,15 +67,15 @@ builder.Services.AddSwaggerGen(options =>
     {
         if (api.GroupName != null)
         {
-            return new[] { api.GroupName };
+            return [api.GroupName];
         }
 
         if (api.ActionDescriptor.RouteValues.TryGetValue("controller", out var controllerName))
         {
-            return new[] { controllerName };
+            return [controllerName];
         }
 
-        return new[] { "Default" };
+        return ["Default"];
     });
 
     options.DocInclusionPredicate((name, api) => true);
@@ -67,6 +92,15 @@ ConfigureService.ConfigureDependenciesServices(builder.Services);
 
 // Register AutoMapper profiles
 ConfigureAutoMapper.ConfigureAutoMapperProfiles(builder.Services);
+
+// Setup Token configuration for JWT authentication
+ConfigureAuthentication.AddTokenConfiguration(builder.Services, builder.Configuration);
+
+// Setup JWT authentication
+ConfigureAuthentication.AddJwtAuthentication(builder.Services);
+
+// Setup authorization policies
+ConfigureAuthentication.AddAuthorizationPolicies(builder.Services);
 
 var app = builder.Build();
 
@@ -91,6 +125,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

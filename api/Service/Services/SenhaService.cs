@@ -17,9 +17,9 @@ public class SenhaService<T> : ISenhaService<T>
         return _passwordHasher.HashPassword(entidade, password);
     }
 
-    public bool VerificarSenha(T entidade, string providedPassword)
+    public bool VerificarSenha(T entidade, string senhaInformada)
     {
-        var result = _passwordHasher.VerifyHashedPassword(entidade, entidade.SenhaHash, providedPassword);
+        var result = _passwordHasher.VerifyHashedPassword(entidade, entidade.SenhaHash, senhaInformada);
         return result == PasswordVerificationResult.Success;
     }
 }

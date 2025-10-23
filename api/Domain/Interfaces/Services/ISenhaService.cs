@@ -7,6 +7,6 @@ public interface ISenhaService<T>
 {
     string HashSenha(T entidade, string password);
 
-    bool VerificarSenha(T entidade, string senhaHash);
+    bool VerificarSenha(T entidade, string senhaInformada);
 }
 

@@ -1,5 +1,3 @@
-using Api.Domain.DTO;
-using Api.Domain.Entidades;
 using Api.Domain.Interfaces.Services;
 using Api.Service.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +12,8 @@ namespace Api.CrossCutting.Dependecies
             serviceCollection.AddScoped<ITurmaService, TurmaService>();
             serviceCollection.AddScoped<IMatriculaService, MatriculaService>();
             serviceCollection.AddScoped<IAdministradorService, AdministradorService>();
+            serviceCollection.AddScoped<ILoginService, LoginService>();
+            serviceCollection.AddTransient<IAuthenticationService, AuthenticationService>();
             serviceCollection.AddTransient(typeof(ISenhaService<>), typeof(SenhaService<>));
         }
     }

@@ -14,4 +14,37 @@ public class AdministradorRepository : BaseRepository<Administrador>, IAdministr
     {
         return await _dataset.AnyAsync(p => p.Email.Equals(administrador.Email));
     }
+
+    public async Task<Administrador> ObterAdministradorPorEmail(string email)
+    {
+        return await _dataset.FirstOrDefaultAsync(u => u.Email.Equals(email));
+    }
+
+    public async Task<Administrador> RecarregarInformacoesDoAdministrador(Administrador administrador)
+    {
+        if (!await _dataset.AnyAsync(u => u.Id.Equals(administrador.Id)))
+            return null;
+
+        var result = await ObterPorIdAsync(administrador.Id);
+
+        if (result != null)
+        {
+            _context.Entry(result).CurrentValues.SetValues(administrador);
+            await _context.SaveChangesAsync();
+        }
+
+        return result;
+    }
+
+    public async Task<bool> RevogarToken(string email)
+    {
+        var administrador = await ObterAdministradorPorEmail(email);
+        if (administrador is null)
+            return false;
+
+        administrador.RevogarRefreshToken();
+        await _context.SaveChangesAsync();
+
+        return true;
+    }
 }
