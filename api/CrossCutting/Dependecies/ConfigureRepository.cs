@@ -23,10 +23,10 @@ namespace Api.CrossCutting.Dependecies
             if (string.Equals(dbProvider, "SQLSERVER", StringComparison.OrdinalIgnoreCase))
             {
                 // For local development
-                var connectionString = configuration.GetConnectionString("DefaultConnection");
+                // var connectionString = configuration.GetConnectionString("DefaultConnection");
 
                 // For Docker deployment
-                // var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
+                var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
 
                 serviceCollection.AddDbContext<ContextoDeDados>(
                     options => options.UseSqlServer(connectionString)
