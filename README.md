@@ -62,6 +62,10 @@ docker-compose logs -f api
 docker-compose logs -f sqlserver
 ```
 
+#### Dica Rápida
+
+As ferramentas de interface de terminal ([TUI](https://en.wikipedia.org/wiki/Text-based_user_interface)) [lazydocker](https://github.com/jesseduffield/lazydocker) e [dblab](https://github.com/danvergara/dblab) são excelentes para monitoramento de containers e para conexão e realização de consultas em bancos de dados. Eu as utilizei durante o desenvolvimento do projeto!
+
 ### 6. Acesse a aplicação
 
 **Swagger UI (Documentação da API):**
