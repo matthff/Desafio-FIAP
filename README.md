@@ -181,6 +181,19 @@ Exemplo de senha válida: `P@ssw0rd123!`
 - **AutoMapper** - Mapeamento de objetos
 - **JWT** - Autenticação
 
+## Possíveis Melhorias e Adicionais ao Projeto
+
+Listarei algumas melhorias e conteúdos adicionais que poderiam ser implementadas e ao projeto ao seguir em frente. Algumas já mencionadas como bônus na especificação do desafio, e outras ideias que tive durante a implementação do projeto mas que não foram implementadas. E que também podem ser desafios futuros de melhorias para a API!
+
+- **Criação de um cliente com interface gráfica para consumo e exibição dos dados da API** - e.g uma SPA feita em React/Blazor Page
+- **Adição dos testes unitários para alcançar cobertura de 100%**
+- **Atualizar o projeto para o .NET 10 e utilizar de algumas features novas**
+- **Criação de um sistema de filtragem e ordenamento universal** - e.g Utilizando bibliotecas como Ardalis.Specification
+- **Implementação de um módulo de orquestração baseado no UnitOfWork para transações**
+- **Padrão ProblemDetails para retornos e tratamento de erros**
+- **Aliar o tratamento de erros com um notificador de eventos**
+- **Adicionar MFA na autênticação**
+
 Este projeto foi desenvolvido como parte do Desafio FIAP.
 
 ---
