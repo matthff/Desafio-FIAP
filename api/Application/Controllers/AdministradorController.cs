@@ -38,7 +38,7 @@ public class AdministradorController : ControllerBase
         }
         try
         {
-            var result = await _administradorService.InserirAdministrador(administrador);
+            var result = await _administradorService.InserirAdministradorAsync(administrador);
             if (result != null)
             {
                 return Created();
@@ -48,7 +48,7 @@ public class AdministradorController : ControllerBase
                 return BadRequest(ModelState);
             }
         }
-        catch (ArgumentException e)
+        catch (Exception e)
         {
             return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
         }
@@ -63,7 +63,7 @@ public class AdministradorController : ControllerBase
     /// </remarks>
     [Authorize("Bearer")]
     [HttpPut]
-    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -75,7 +75,7 @@ public class AdministradorController : ControllerBase
         }
         try
         {
-            var result = await _administradorService.AtualizarAdministrador(administrador);
+            var result = await _administradorService.AtualizarAdministradorAsync(administrador);
             if (result != null)
             {
                 return Ok(result);
@@ -85,7 +85,7 @@ public class AdministradorController : ControllerBase
                 return BadRequest(ModelState);
             }
         }
-        catch (ArgumentException e)
+        catch (Exception e)
         {
             return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
         }

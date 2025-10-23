@@ -26,7 +26,7 @@ public class AlunoController : ControllerBase
     /// Lista todos os alunos.
     /// </summary>
     /// <remarks>
-    /// Retorna uma lista paginada ordenada por ordem alfabética pelo nome de todos os alunos cadastrados no sistema.
+    /// Retorna uma lista paginada, ordenada pelo nome de todos os alunos cadastrados no sistema em ordem alfabética.
     /// </remarks>
     [Authorize("Bearer")]
     [HttpGet]
@@ -43,7 +43,7 @@ public class AlunoController : ControllerBase
         }
         try
         {
-            var result = await _alunoService.ObterTodosOrdenadosPorNome(page, Pagination.DefaultPageSize);
+            var result = await _alunoService.ObterTodosOrdenadosPorNomeAsync(page, Pagination.DefaultPageSize);
             if (result == null)
             {
                 return NotFound();
@@ -51,7 +51,7 @@ public class AlunoController : ControllerBase
 
             return Ok(result);
         }
-        catch (ArgumentException e)
+        catch (Exception e)
         {
             return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
         }
@@ -61,7 +61,7 @@ public class AlunoController : ControllerBase
     /// Obter um aluno pelo seu identificador.
     /// </summary>
     /// <remarks>
-    /// Retorna um objeto com as informações sobre o aluno.
+    /// Retorna um objeto com as informações do aluno.
     /// </remarks>
     /// <param name="alunoId">Identificador do aluno.</param>
     [Authorize("Bearer")]
@@ -87,7 +87,7 @@ public class AlunoController : ControllerBase
 
             return Ok(result);
         }
-        catch (ArgumentException e)
+        catch (Exception e)
         {
             return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
         }
@@ -97,7 +97,7 @@ public class AlunoController : ControllerBase
     /// Obter um aluno pelo seu nome.
     /// </summary>
     /// <remarks>
-    /// Retorna um objeto com as informações sobre o aluno.
+    /// Retorna um objeto com as informações do aluno.
     /// </remarks>
     /// <param name="alunoNome">Nome do aluno.</param>
     [Authorize("Bearer")]
@@ -116,7 +116,7 @@ public class AlunoController : ControllerBase
         }
         try
         {
-            var result = await _alunoService.ObterPorIdComNome(alunoNome);
+            var result = await _alunoService.ObterPorIdComNomeAsync(alunoNome);
             if (result == null)
             {
                 return NotFound();
@@ -124,7 +124,7 @@ public class AlunoController : ControllerBase
 
             return Ok(result);
         }
-        catch (ArgumentException e)
+        catch (Exception e)
         {
             return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
         }
@@ -134,7 +134,7 @@ public class AlunoController : ControllerBase
     /// Obter um aluno pelo seu CPF.
     /// </summary>
     /// <remarks>
-    /// Retorna um objeto com as informações sobre o aluno.
+    /// Retorna um objeto com as informações do aluno.
     /// </remarks>
     /// <param name="alunoCpf">CPF do aluno.</param>
     [Authorize("Bearer")]
@@ -153,7 +153,7 @@ public class AlunoController : ControllerBase
         }
         try
         {
-            var result = await _alunoService.ObterPorIdComCpf(alunoCpf);
+            var result = await _alunoService.ObterPorIdComCpfAsync(alunoCpf);
             if (result == null)
             {
                 return NotFound();
@@ -161,7 +161,7 @@ public class AlunoController : ControllerBase
 
             return Ok(result);
         }
-        catch (ArgumentException e)
+        catch (Exception e)
         {
             return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
         }
@@ -171,7 +171,7 @@ public class AlunoController : ControllerBase
     /// <summary>
     /// Cadastra um novo aluno.
     /// </summary>
-    /// <param name="aluno">Dados do aluno a ser cadastrada.</param>
+    /// <param name="aluno">Dados do aluno a ser cadastrado.</param>
     [Authorize("Bearer")]
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
@@ -186,7 +186,7 @@ public class AlunoController : ControllerBase
         }
         try
         {
-            var result = await _alunoService.InserirAluno(aluno);
+            var result = await _alunoService.InserirAlunoAsync(aluno);
             if (result != null)
             {
                 return Created();
@@ -196,7 +196,7 @@ public class AlunoController : ControllerBase
                 return BadRequest(ModelState);
             }
         }
-        catch (ArgumentException e)
+        catch (Exception e)
         {
             return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
         }
@@ -211,7 +211,7 @@ public class AlunoController : ControllerBase
     /// </remarks>
     [Authorize("Bearer")]
     [HttpPut]
-    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -223,7 +223,7 @@ public class AlunoController : ControllerBase
         }
         try
         {
-            var result = await _alunoService.AtualizarAluno(aluno);
+            var result = await _alunoService.AtualizarAlunoAsync(aluno);
             if (result != null)
             {
                 return Ok(result);
@@ -233,7 +233,7 @@ public class AlunoController : ControllerBase
                 return BadRequest(ModelState);
             }
         }
-        catch (ArgumentException e)
+        catch (Exception e)
         {
             return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
         }
@@ -261,7 +261,7 @@ public class AlunoController : ControllerBase
         }
         try
         {
-            var result = await _alunoService.ExcluirAluno(alunoId);
+            var result = await _alunoService.ExcluirAlunoAsync(alunoId);
             if (result)
             {
                 return Ok(result);
@@ -271,7 +271,7 @@ public class AlunoController : ControllerBase
                 return NotFound(result);
             }
         }
-        catch (ArgumentException e)
+        catch (Exception e)
         {
             return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
         }

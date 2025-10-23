@@ -6,16 +6,16 @@ namespace Api.Domain.Interfaces.Services;
 
 public interface IAdministradorService
 {
-    Task<Administrador> ObterAdministradorPorEmail(string email);
+    Task<Administrador> ObterAdministradorPorEmailAsync(string email);
 
-    Task<AdministradorDto> InserirAdministrador(AdministradorInserirDto administradorCriado);
+    Task<AdministradorDto> InserirAdministradorAsync(AdministradorInserirDto administradorCriado);
 
-    Task<AdministradorDto> AtualizarAdministrador(AdministradorAtualizarDto administradorAtualizado);
+    Task<AdministradorDto> AtualizarAdministradorAsync(AdministradorAtualizarDto administradorAtualizado);
 
-    Task<Administrador> ValidarCredenciaisDoAdministrador(AdministradorLoginDto administradorLogin);
+    Task<Administrador> ValidarCredenciaisDoAdministradorAsync(AdministradorLoginDto administradorLogin);
 
-    Task RecarregarInformacoesDoAdministrador(Administrador administrador);
+    Task RecarregarInformacoesDoAdministradorAsync(Administrador administrador);
 
-    Task<bool> RevogarToken(string email);
+    Task<bool> RevogarTokenAsync(string email);
 }
 

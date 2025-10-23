@@ -21,7 +21,7 @@ public class AlunoService : BaseService<Aluno, AlunoDto>, IAlunoService
         _senhaService = senhaService;
     }
 
-    public async Task<PagedResult<AlunoDto>> ObterTodosOrdenadosPorNome(
+    public async Task<PagedResult<AlunoDto>> ObterTodosOrdenadosPorNomeAsync(
         int page = Pagination.DefaultPageNumber,
         int pageSize = Pagination.DefaultPageSize)
     {
@@ -43,38 +43,38 @@ public class AlunoService : BaseService<Aluno, AlunoDto>, IAlunoService
         };
     }
 
-    public async Task<AlunoDto> ObterPorIdComNome(string alunoNome)
+    public async Task<AlunoDto> ObterPorIdComNomeAsync(string alunoNome)
     {
-        return _mapper.Map<AlunoDto>(await _alunoRepository.ObterPorIdComNome(alunoNome));
+        return _mapper.Map<AlunoDto>(await _alunoRepository.ObterPorIdComNomeAsync(alunoNome));
     }
 
-    public async Task<AlunoDto> ObterPorIdComCpf(string alunoCpf)
+    public async Task<AlunoDto> ObterPorIdComCpfAsync(string alunoCpf)
     {
-        return _mapper.Map<AlunoDto>(await _alunoRepository.ObterPorIdComCpf(alunoCpf));
+        return _mapper.Map<AlunoDto>(await _alunoRepository.ObterPorIdComCpfAsync(alunoCpf));
     }
 
-    public async Task<AlunoDto> InserirAluno(AlunoInserirDto alunoCriado)
+    public async Task<AlunoDto> InserirAlunoAsync(AlunoInserirDto alunoCriado)
     {
         var entity = _mapper.Map<Aluno>(alunoCriado);
 
-        if (await _alunoRepository.ExisteAluno(entity))
+        if (await _alunoRepository.ExisteAlunoAsync(entity))
             return null;
 
-        entity.DefinirSenha(_senhaService.HashSenha(entity, alunoCriado.Senha));
+        entity.DefinirSenha(_senhaService.DefinirHashDaSenha(entity, alunoCriado.Senha));
 
         var result = await _alunoRepository.InserirAsync(entity);
 
         return _mapper.Map<AlunoDto>(result);
     }
 
-    public async Task<AlunoDto> AtualizarAluno(AlunoAtualizarDto alunoAtualizado)
+    public async Task<AlunoDto> AtualizarAlunoAsync(AlunoAtualizarDto alunoAtualizado)
     {
         var entity = _mapper.Map<Aluno>(alunoAtualizado);
 
-        if (await _alunoRepository.ExisteAluno(entity))
+        if (await _alunoRepository.ExisteAlunoAsync(entity))
             return null;
 
-        entity.DefinirSenha(_senhaService.HashSenha(entity, alunoAtualizado.Senha));
+        entity.DefinirSenha(_senhaService.DefinirHashDaSenha(entity, alunoAtualizado.Senha));
 
         var result = await _alunoRepository.AtualizarParcialAsync(entity,
             e => e.Nome,
@@ -86,7 +86,7 @@ public class AlunoService : BaseService<Aluno, AlunoDto>, IAlunoService
         return _mapper.Map<AlunoDto>(result);
     }
 
-    public async Task<bool> ExcluirAluno(int alunoId)
+    public async Task<bool> ExcluirAlunoAsync(int alunoId)
     {
         return await _alunoRepository.ExcluirAsync(alunoId);
     }

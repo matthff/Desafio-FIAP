@@ -26,26 +26,26 @@ public class AdministradorService : IAdministradorService
         _senhaService = senhaService;
     }
 
-    public async Task<Administrador> ObterAdministradorPorEmail(string email)
+    public async Task<Administrador> ObterAdministradorPorEmailAsync(string email)
     {
-        return await _administradorRepository.ObterAdministradorPorEmail(email); ;
+        return await _administradorRepository.ObterAdministradorPorEmailAsync(email); ;
     }
 
-    public async Task<AdministradorDto> InserirAdministrador(AdministradorInserirDto administradorCriado)
+    public async Task<AdministradorDto> InserirAdministradorAsync(AdministradorInserirDto administradorCriado)
     {
         var entity = _mapper.Map<Administrador>(administradorCriado);
 
         if (await _administradorRepository.ExisteAdministradorComMesmoEmailAsync(entity))
             return null;
 
-        entity.DefinirSenha(_senhaService.HashSenha(entity, administradorCriado.Senha));
+        entity.DefinirSenha(_senhaService.DefinirHashDaSenha(entity, administradorCriado.Senha));
 
         var result = await _administradorRepository.InserirAsync(entity);
 
         return _mapper.Map<AdministradorDto>(result);
     }
 
-    public async Task<AdministradorDto> AtualizarAdministrador(AdministradorAtualizarDto administradorAtualizado)
+    public async Task<AdministradorDto> AtualizarAdministradorAsync(AdministradorAtualizarDto administradorAtualizado)
     {
         var entity = _mapper.Map<Administrador>(administradorAtualizado);
 
@@ -59,26 +59,26 @@ public class AdministradorService : IAdministradorService
         return _mapper.Map<AdministradorDto>(result);
     }
 
-    public async Task<Administrador> ValidarCredenciaisDoAdministrador(AdministradorLoginDto administradorLoginDto)
+    public async Task<Administrador> ValidarCredenciaisDoAdministradorAsync(AdministradorLoginDto administradorLoginDto)
     {
-        var entity = await _administradorRepository.ObterAdministradorPorEmail(administradorLoginDto.Email);
+        var entity = await _administradorRepository.ObterAdministradorPorEmailAsync(administradorLoginDto.Email);
 
         if (entity == null)
             return null;
 
-        if (!_senhaService.VerificarSenha(entity, administradorLoginDto.Senha))
+        if (!_senhaService.ValidarSenha(entity, administradorLoginDto.Senha))
             return null;
 
         return entity;
     }
 
-    public async Task RecarregarInformacoesDoAdministrador(Administrador administrador)
+    public async Task RecarregarInformacoesDoAdministradorAsync(Administrador administrador)
     {
-        await _administradorRepository.RecarregarInformacoesDoAdministrador(administrador);
+        await _administradorRepository.RecarregarInformacoesDoAdministradorAsync(administrador);
     }
 
-    public async Task<bool> RevogarToken(string email)
+    public async Task<bool> RevogarTokenAsync(string email)
     {
-        return await _administradorRepository.RevogarToken(email);
+        return await _administradorRepository.RevogarTokenAsync(email);
     }
 }

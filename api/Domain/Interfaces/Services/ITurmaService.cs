@@ -7,14 +7,14 @@ namespace Api.Domain.Interfaces.Services;
 
 public interface ITurmaService : IBaseService<TurmaDto>
 {
-    Task<PagedResult<TurmaDto>> ObterTodosOrdenadosPorNomeComQuantidadeDeAlunos(int page, int pageSize);
+    Task<PagedResult<TurmaDto>> ObterTurmasOrdenadasPorNomeComQuantidadeDeAlunosAsync(int page, int pageSize);
 
-    Task<TurmaDto> ObterPorIdComQuantidadeDeAlunos(int turmaId);
+    Task<TurmaDto> ObterPorIdComQuantidadeDeAlunosAsync(int turmaId);
 
-    Task<TurmaDto> InserirTurma(TurmaInserirDto turmaCriada);
+    Task<TurmaDto> InserirTurmaAsync(TurmaInserirDto turmaCriada);
 
-    Task<TurmaDto> AtualizarTurma(TurmaAtualizarDto turmaAtualizada);
+    Task<TurmaDto> AtualizarTurmaAsync(TurmaAtualizarDto turmaAtualizada);
 
-    Task<bool> ExcluirTurma(int turmaId);
+    Task<bool> ExcluirTurmaAsync(int turmaId);
 }
 

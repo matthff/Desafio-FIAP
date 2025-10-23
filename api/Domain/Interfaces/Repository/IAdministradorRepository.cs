@@ -7,9 +7,9 @@ public interface IAdministradorRepository : IBaseRepository<Administrador>
 {
     Task<bool> ExisteAdministradorComMesmoEmailAsync(Administrador administrador);
 
-    Task<Administrador> ObterAdministradorPorEmail(string email);
+    Task<Administrador> ObterAdministradorPorEmailAsync(string email);
 
-    Task<Administrador> RecarregarInformacoesDoAdministrador(Administrador administrador);
+    Task<Administrador> RecarregarInformacoesDoAdministradorAsync(Administrador administrador);
 
-    Task<bool> RevogarToken(string email);
+    Task<bool> RevogarTokenAsync(string email);
 }

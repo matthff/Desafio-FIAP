@@ -4,19 +4,18 @@ using Domain.Utils;
 
 namespace Api.Domain.Interfaces.Services;
 
-//TODO: Criar métodos específicos para Aluno
 public interface IAlunoService : IBaseService<AlunoDto>
 {
-    Task<PagedResult<AlunoDto>> ObterTodosOrdenadosPorNome(int page, int pageSize);
+    Task<PagedResult<AlunoDto>> ObterTodosOrdenadosPorNomeAsync(int page, int pageSize);
 
-    Task<AlunoDto> ObterPorIdComNome(string alunoNome);
+    Task<AlunoDto> ObterPorIdComNomeAsync(string alunoNome);
 
-    Task<AlunoDto> ObterPorIdComCpf(string alunoCpf);
+    Task<AlunoDto> ObterPorIdComCpfAsync(string alunoCpf);
 
-    Task<AlunoDto> InserirAluno(AlunoInserirDto alunoCriado);
+    Task<AlunoDto> InserirAlunoAsync(AlunoInserirDto alunoCriado);
 
-    Task<AlunoDto> AtualizarAluno(AlunoAtualizarDto alunoAtualizado);
+    Task<AlunoDto> AtualizarAlunoAsync(AlunoAtualizarDto alunoAtualizado);
 
-    Task<bool> ExcluirAluno(int alunoId);
+    Task<bool> ExcluirAlunoAsync(int alunoId);
 }
 

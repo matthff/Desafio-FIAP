@@ -6,7 +6,7 @@ namespace Api.Domain.Interfaces.Repository;
 
 public interface ITurmaRepository : IBaseRepository<Turma>
 {
-    Task<IEnumerable<Turma>> ObterTodosComAlunos();
+    Task<IEnumerable<Turma>> ObterTodosComAlunosAsync();
 
-    Task<Turma> ObterPorIdComAlunos(int turmaId);
+    Task<Turma> ObterPorIdComAlunosAsync(int turmaId);
 }

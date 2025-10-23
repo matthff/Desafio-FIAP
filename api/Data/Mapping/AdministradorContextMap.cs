@@ -20,7 +20,7 @@ public class AdministradorContextMap : IEntityTypeConfiguration<Administrador>
 
         builder.Property(a => a.RefreshToken).HasMaxLength(500);
 
-        builder.Property(a => a.RefreshTokenExpireTime);
+        builder.Property(a => a.RefreshTokenExpireTime).HasColumnType("DATE");
 
         builder.Property(a => a.Ativo).IsRequired().HasDefaultValue(true);
 

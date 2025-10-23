@@ -46,14 +46,14 @@ public class LoginController : ControllerBase
             if (administradorLoginDto == null)
                 return BadRequest("Credenciais inválidas");
 
-            var token = await _loginService.ValidarLogin(administradorLoginDto);
+            var token = await _loginService.ValidarLoginAsync(administradorLoginDto);
 
             if (token == null)
                 return Unauthorized();
 
             return Ok(token);
         }
-        catch (ArgumentException e)
+        catch (Exception e)
         {
             return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
         }
@@ -63,7 +63,7 @@ public class LoginController : ControllerBase
     /// Recarrega o token JWT.
     /// </summary>
     /// <remarks>
-    /// Recarrega o token JWT utilizando o token de atualização (refresh token) válido.
+    /// Recarrega o token JWT utilizando o token e o token de atualização (refresh token) válidos.
     /// </remarks>
     [AllowAnonymous]
     [HttpPost]
@@ -82,20 +82,20 @@ public class LoginController : ControllerBase
             if (refreshTokenDto is null)
                 return BadRequest("Requisição está inválida");
 
-            var token = await _loginService.ValidarLoginComTokenERefreshToken(refreshTokenDto);
+            var token = await _loginService.ValidarLoginComTokenERefreshTokenAsync(refreshTokenDto);
             if (token == null)
                 return BadRequest("Token ou RefreshToken inválidos");
 
             return Ok(token);
         }
-        catch (ArgumentException e)
+        catch (Exception e)
         {
             return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
         }
     }
 
     /// <summary>
-    /// Revoga o token JWT.
+    /// Revoga o token JWT do administrador logado.
     /// </summary>
     [Authorize("Bearer")]
     [HttpDelete]
@@ -105,7 +105,7 @@ public class LoginController : ControllerBase
     public async Task<IActionResult> RevogarToken()
     {
         var email = User?.Identity?.Name;
-        var result = await _loginService.RevogarToken(email);
+        var result = await _loginService.RevogarTokenAsync(email);
 
         if (!result)
             return Unauthorized("Não foi possível revogar o token com a conta atualmente autenticada.");

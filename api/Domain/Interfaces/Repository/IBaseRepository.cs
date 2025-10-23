@@ -10,11 +10,17 @@ namespace Api.Domain.Interfaces.Repository
         where T : EntidadeBase
     {
         Task<T> ObterPorIdAsync(int id);
+
         Task<IEnumerable<T>> ObterTodosAsync();
+
         Task<T> InserirAsync(T item);
+
         Task<T> AtualizarAsync(T item);
+
         Task<T> AtualizarParcialAsync(T item, params Expression<Func<T, object>>[] includeProperties);
+
         Task<bool> ExcluirAsync(int id);
+
         Task<bool> ExisteAsync(int id);
     }
 }

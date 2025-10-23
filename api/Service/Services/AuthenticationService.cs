@@ -12,7 +12,7 @@ namespace Api.Service.Services;
 
 public class AuthenticationService : IAuthenticationService
 {
-    private TokenConfiguration _configuration;
+    private readonly TokenConfiguration _configuration;
 
     public AuthenticationService(TokenConfiguration configuration)
     {

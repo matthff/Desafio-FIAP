@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Application.Controllers;
 
 /// <summary>
-/// Gerenciamento de matriculas - V1
+/// Gerenciamento de matrículas - V1
 /// </summary>
 [ApiController]
 [Route("api/v1/[controller]")]
@@ -51,7 +51,7 @@ public class MatriculaController : ControllerBase
 
             return Ok(result);
         }
-        catch (ArgumentException e)
+        catch (Exception e)
         {
             return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
         }
@@ -79,7 +79,7 @@ public class MatriculaController : ControllerBase
 
             return Created();
         }
-        catch (ArgumentException e)
+        catch (Exception e)
         {
             return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
         }
@@ -117,7 +117,7 @@ public class MatriculaController : ControllerBase
                 return NotFound(result);
             }
         }
-        catch (ArgumentException e)
+        catch (Exception e)
         {
             return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
         }

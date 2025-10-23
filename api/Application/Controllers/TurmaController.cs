@@ -25,7 +25,7 @@ public class TurmaController : ControllerBase
     /// Lista todas as turmas.
     /// </summary>
     /// <remarks>
-    /// Retorna uma lista paginada ordenada por ordem alfabética pelo nome de todas as turmas cadastradas no sistema.
+    /// Retorna uma lista paginada, ordenada pelo nome de todas as turmas cadastradas no sistema em ordem alfabética.
     /// </remarks>
     [Authorize("Bearer")]
     [HttpGet]
@@ -41,7 +41,7 @@ public class TurmaController : ControllerBase
         }
         try
         {
-            var result = await _turmaService.ObterTodosOrdenadosPorNomeComQuantidadeDeAlunos(page, Pagination.DefaultPageSize);
+            var result = await _turmaService.ObterTurmasOrdenadasPorNomeComQuantidadeDeAlunosAsync(page, Pagination.DefaultPageSize);
             if (result == null)
             {
                 return NotFound();
@@ -49,7 +49,7 @@ public class TurmaController : ControllerBase
 
             return Ok(result);
         }
-        catch (ArgumentException e)
+        catch (Exception e)
         {
             return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
         }
@@ -59,7 +59,7 @@ public class TurmaController : ControllerBase
     /// Obter uma turma pelo seu identificador.
     /// </summary>
     /// <remarks>
-    /// Retorna um objeto com as informações sobre a turma e sua quantidade de alunos.
+    /// Retorna um objeto com as informações da turma e sua quantidade de alunos.
     /// </remarks>
     /// <param name="turmaId">Identificador da turma.</param>
     [Authorize("Bearer")]
@@ -77,7 +77,7 @@ public class TurmaController : ControllerBase
         }
         try
         {
-            var result = await _turmaService.ObterPorIdComQuantidadeDeAlunos(turmaId);
+            var result = await _turmaService.ObterPorIdComQuantidadeDeAlunosAsync(turmaId);
             if (result == null)
             {
                 return NotFound();
@@ -85,7 +85,7 @@ public class TurmaController : ControllerBase
 
             return Ok(result);
         }
-        catch (ArgumentException e)
+        catch (Exception e)
         {
             return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
         }
@@ -109,7 +109,7 @@ public class TurmaController : ControllerBase
         }
         try
         {
-            var result = await _turmaService.InserirTurma(turma);
+            var result = await _turmaService.InserirTurmaAsync(turma);
             if (result != null)
             {
                 return Created();
@@ -119,7 +119,7 @@ public class TurmaController : ControllerBase
                 return BadRequest(ModelState);
             }
         }
-        catch (ArgumentException e)
+        catch (Exception e)
         {
             return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
         }
@@ -130,11 +130,11 @@ public class TurmaController : ControllerBase
     /// </summary>
     /// <param name="turma">Dados da turma a ser atualizada.</param>
     /// <remarks>
-    /// Retorna um objeto com as informações sobre a turma atualizada.
+    /// Retorna um objeto com as informações da turma atualizada.
     /// </remarks>
     [Authorize("Bearer")]
     [HttpPut]
-    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -146,7 +146,7 @@ public class TurmaController : ControllerBase
         }
         try
         {
-            var result = await _turmaService.AtualizarTurma(turma);
+            var result = await _turmaService.AtualizarTurmaAsync(turma);
             if (result != null)
             {
                 return Ok(result);
@@ -156,7 +156,7 @@ public class TurmaController : ControllerBase
                 return BadRequest(ModelState);
             }
         }
-        catch (ArgumentException e)
+        catch (Exception e)
         {
             return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
         }
@@ -184,7 +184,7 @@ public class TurmaController : ControllerBase
         }
         try
         {
-            var result = await _turmaService.ExcluirTurma(turmaId);
+            var result = await _turmaService.ExcluirTurmaAsync(turmaId);
             if (result)
             {
                 return Ok(result);
@@ -194,7 +194,7 @@ public class TurmaController : ControllerBase
                 return NotFound(result);
             }
         }
-        catch (ArgumentException e)
+        catch (Exception e)
         {
             return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
         }

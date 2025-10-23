@@ -12,12 +12,12 @@ public class SenhaService<T> : ISenhaService<T>
         _passwordHasher = new PasswordHasher<T>();
     }
 
-    public string HashSenha(T entidade, string password)
+    public string DefinirHashDaSenha(T entidade, string password)
     {
         return _passwordHasher.HashPassword(entidade, password);
     }
 
-    public bool VerificarSenha(T entidade, string senhaInformada)
+    public bool ValidarSenha(T entidade, string senhaInformada)
     {
         var result = _passwordHasher.VerifyHashedPassword(entidade, entidade.SenhaHash, senhaInformada);
         return result == PasswordVerificationResult.Success;

@@ -15,8 +15,8 @@ public class LoginService : ILoginService
     private const string DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     private readonly IAdministradorService _administradorService;
-    private TokenConfiguration _configuration;
-    private IAuthenticationService _authenticationService;
+    private readonly TokenConfiguration _configuration;
+    private readonly IAuthenticationService _authenticationService;
 
     public LoginService(IAdministradorService administradorService,
         TokenConfiguration configuration,
@@ -27,9 +27,9 @@ public class LoginService : ILoginService
         _authenticationService = authenticationService;
     }
 
-    public async Task<TokenDto> ValidarLogin(AdministradorLoginDto administradorLoginDto)
+    public async Task<TokenDto> ValidarLoginAsync(AdministradorLoginDto administradorLoginDto)
     {
-        var administrador = await _administradorService.ValidarCredenciaisDoAdministrador(administradorLoginDto);
+        var administrador = await _administradorService.ValidarCredenciaisDoAdministradorAsync(administradorLoginDto);
 
         if (administrador == null)
             return null;
@@ -49,7 +49,7 @@ public class LoginService : ILoginService
         DateTime createDate = DateTime.Now;
         DateTime expirationDate = createDate.AddMinutes(_configuration.Minutes);
 
-        await _administradorService.RecarregarInformacoesDoAdministrador(administrador);
+        await _administradorService.RecarregarInformacoesDoAdministradorAsync(administrador);
 
         return new TokenDto
         {
@@ -61,7 +61,7 @@ public class LoginService : ILoginService
         };
     }
 
-    public async Task<TokenDto> ValidarLoginComTokenERefreshToken(RefreshTokenDto refreshTokenDto)
+    public async Task<TokenDto> ValidarLoginComTokenERefreshTokenAsync(RefreshTokenDto refreshTokenDto)
     {
         var accessToken = refreshTokenDto.AccessToken;
         var refreshToken = refreshTokenDto.RefreshToken;
@@ -70,7 +70,7 @@ public class LoginService : ILoginService
 
         var administradorEmail = principal.Identity.Name;
 
-        var administrador = await _administradorService.ObterAdministradorPorEmail(administradorEmail);
+        var administrador = await _administradorService.ObterAdministradorPorEmailAsync(administradorEmail);
 
         if (administrador == null ||
             administrador.RefreshToken != refreshToken ||
@@ -81,7 +81,7 @@ public class LoginService : ILoginService
 
         administrador.DefinirRefreshToken(refreshToken);
 
-        await _administradorService.RecarregarInformacoesDoAdministrador(administrador);
+        await _administradorService.RecarregarInformacoesDoAdministradorAsync(administrador);
 
         DateTime createDate = DateTime.Now;
         DateTime expirationDate = createDate.AddMinutes(_configuration.Minutes);
@@ -96,9 +96,9 @@ public class LoginService : ILoginService
         };
     }
 
-    public async Task<bool> RevogarToken(string email)
+    public async Task<bool> RevogarTokenAsync(string email)
     {
-        return await _administradorService.RevogarToken(email);
+        return await _administradorService.RevogarTokenAsync(email);
     }
 }
 

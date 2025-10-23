@@ -20,12 +20,12 @@ builder.Services.AddSwaggerGen(options =>
     {
         Version = "v1",
         Title = "API de Gestão Escolar",
-        Description = "API para gerenciamento de alunos, turmas e matrículas com documentação completa",
+        Description = "API para gerenciamento administrativo de alunos, turmas e matrículas",
         Contact = new OpenApiContact
         {
             Name = "Equipe de Desenvolvimento",
-            Email = "contato@escola.com",
-            Url = new Uri("https://escola.com")
+            Email = "contato@fiap.com.br",
+            Url = new Uri("https://fiapdesafio.com.br")
         },
         License = new OpenApiLicense
         {
@@ -54,7 +54,7 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 
-    // Add XML comments if available (optional - see below for setup)
+    // Add XML comments if available
     var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     if (File.Exists(xmlPath))

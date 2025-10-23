@@ -6,7 +6,7 @@ public class CpfValidoAttribute : ValidationAttribute
     protected override ValidationResult IsValid(object value, ValidationContext validationContext)
     {
         if (value == null || string.IsNullOrWhiteSpace(value.ToString()))
-            return ValidationResult.Success; // Required já valida isso
+            return ValidationResult.Success;
 
         string cpf = value.ToString().Replace(".", "").Replace("-", "");
 

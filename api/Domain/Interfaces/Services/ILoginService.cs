@@ -6,8 +6,8 @@ namespace Api.Domain.Interfaces.Services;
 
 public interface ILoginService
 {
-    Task<TokenDto> ValidarLogin(AdministradorLoginDto administradorLoginDto);
-    Task<TokenDto> ValidarLoginComTokenERefreshToken(RefreshTokenDto refreshTokenDto);
-    Task<bool> RevogarToken(string administradorEmail);
+    Task<TokenDto> ValidarLoginAsync(AdministradorLoginDto administradorLoginDto);
+    Task<TokenDto> ValidarLoginComTokenERefreshTokenAsync(RefreshTokenDto refreshTokenDto);
+    Task<bool> RevogarTokenAsync(string administradorEmail);
 }
 

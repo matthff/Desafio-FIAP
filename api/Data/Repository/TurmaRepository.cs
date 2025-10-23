@@ -12,12 +12,12 @@ public class TurmaRepository : BaseRepository<Turma>, ITurmaRepository
 {
     public TurmaRepository(ContextoDeDados context) : base(context) { }
 
-    public async Task<IEnumerable<Turma>> ObterTodosComAlunos()
+    public async Task<IEnumerable<Turma>> ObterTodosComAlunosAsync()
     {
         return await _dataset.Include(t => t.Alunos).ToListAsync();
     }
 
-    public async Task<Turma> ObterPorIdComAlunos(int turmaId)
+    public async Task<Turma> ObterPorIdComAlunosAsync(int turmaId)
     {
         return await _dataset.Include(t => t.Alunos).SingleOrDefaultAsync(p => p.Id.Equals(turmaId));
     }

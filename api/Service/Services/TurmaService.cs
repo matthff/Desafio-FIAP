@@ -20,11 +20,11 @@ namespace Api.Service.Services
             _turmaRepository = turmaRepository;
         }
 
-        public async Task<PagedResult<TurmaDto>> ObterTodosOrdenadosPorNomeComQuantidadeDeAlunos(
+        public async Task<PagedResult<TurmaDto>> ObterTurmasOrdenadasPorNomeComQuantidadeDeAlunosAsync(
             int page = Pagination.DefaultPageNumber,
             int pageSize = Pagination.DefaultPageSize)
         {
-            var listEntity = await _turmaRepository.ObterTodosAsync();
+            var listEntity = await _turmaRepository.ObterTodosComAlunosAsync();
 
             var totalCount = listEntity.Count();
             var items = listEntity
@@ -42,12 +42,12 @@ namespace Api.Service.Services
             };
         }
 
-        public async Task<TurmaDto> ObterPorIdComQuantidadeDeAlunos(int turmaId)
+        public async Task<TurmaDto> ObterPorIdComQuantidadeDeAlunosAsync(int turmaId)
         {
-            return _mapper.Map<TurmaDto>(await _turmaRepository.ObterPorIdComAlunos(turmaId));
+            return _mapper.Map<TurmaDto>(await _turmaRepository.ObterPorIdComAlunosAsync(turmaId));
         }
 
-        public async Task<TurmaDto> InserirTurma(TurmaInserirDto turmaCriada)
+        public async Task<TurmaDto> InserirTurmaAsync(TurmaInserirDto turmaCriada)
         {
             var entity = _mapper.Map<Turma>(turmaCriada);
             var result = await _turmaRepository.InserirAsync(entity);
@@ -55,7 +55,7 @@ namespace Api.Service.Services
             return _mapper.Map<TurmaDto>(result);
         }
 
-        public async Task<TurmaDto> AtualizarTurma(TurmaAtualizarDto turmaAtualizada)
+        public async Task<TurmaDto> AtualizarTurmaAsync(TurmaAtualizarDto turmaAtualizada)
         {
             var entity = _mapper.Map<Turma>(turmaAtualizada);
             var result = await _turmaRepository.AtualizarParcialAsync(entity,
@@ -64,7 +64,7 @@ namespace Api.Service.Services
             return _mapper.Map<TurmaDto>(result);
         }
 
-        public async Task<bool> ExcluirTurma(int turmaId)
+        public async Task<bool> ExcluirTurmaAsync(int turmaId)
         {
             return await _turmaRepository.ExcluirAsync(turmaId);
         }

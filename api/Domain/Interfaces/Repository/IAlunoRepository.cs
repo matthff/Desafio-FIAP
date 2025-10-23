@@ -5,9 +5,9 @@ namespace Api.Domain.Interfaces.Repository;
 
 public interface IAlunoRepository : IBaseRepository<Aluno>
 {
-    Task<Aluno> ObterPorIdComNome(string alunoNome);
+    Task<Aluno> ObterPorIdComNomeAsync(string alunoNome);
 
-    Task<Aluno> ObterPorIdComCpf(string alunoCpf);
+    Task<Aluno> ObterPorIdComCpfAsync(string alunoCpf);
 
-    Task<bool> ExisteAluno(Aluno aluno);
+    Task<bool> ExisteAlunoAsync(Aluno aluno);
 }
