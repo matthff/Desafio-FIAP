@@ -14,7 +14,7 @@ namespace Application.Controllers;
 [Tags("Aluno")]
 public class AlunoController : ControllerBase
 {
-    private IAlunoService _alunoService;
+    private readonly IAlunoService _alunoService;
 
     public AlunoController(IAlunoService alunoService)
     {

@@ -13,7 +13,7 @@ namespace Application.Controllers;
 [Tags("Turma")]
 public class TurmaController : ControllerBase
 {
-    private ITurmaService _turmaService;
+    private readonly ITurmaService _turmaService;
 
     public TurmaController(ITurmaService turmaService)
     {

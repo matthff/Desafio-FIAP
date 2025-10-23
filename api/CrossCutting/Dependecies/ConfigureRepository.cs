@@ -15,7 +15,7 @@ namespace Api.CrossCutting.Dependecies
             serviceCollection.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             serviceCollection.AddScoped<IAlunoRepository, AlunoRepository>();
             serviceCollection.AddScoped<ITurmaRepository, TurmaRepository>();
-
+            serviceCollection.AddScoped<IMatriculaRepository, MatriculaRepository>();
 
             var dbProvider = Environment.GetEnvironmentVariable("DB_PROVIDER") ?? "SQLSERVER";
 
